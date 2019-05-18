@@ -1,12 +1,6 @@
 package com.zhao.marketcenter.common.util;
 
-import com.google.gson.FieldNamingPolicy;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonPrimitive;
-import com.google.gson.JsonSerializationContext;
-import com.google.gson.JsonSerializer;
+import com.google.gson.*;
 import com.google.gson.stream.JsonReader;
 
 import java.lang.reflect.Type;
@@ -25,7 +19,7 @@ public class JsonUtil {
         gb.registerTypeAdapter(Double.class, new JsonSerializer<Double>() {
             @Override
             public JsonElement serialize(Double src, Type typeOfSrc, JsonSerializationContext context) {
-                if(src == src.longValue()) {
+                if (src == src.longValue()) {
                     return new JsonPrimitive(src.longValue());
                 }
                 return new JsonPrimitive(src);
@@ -40,7 +34,7 @@ public class JsonUtil {
         ksGb.registerTypeAdapter(Double.class, new JsonSerializer<Double>() {
             @Override
             public JsonElement serialize(Double src, Type typeOfSrc, JsonSerializationContext context) {
-                if(src == src.longValue()) {
+                if (src == src.longValue()) {
                     return new JsonPrimitive(src.longValue());
                 }
                 return new JsonPrimitive(src);
@@ -63,6 +57,7 @@ public class JsonUtil {
 
     /**
      * 使用Gson生成json字符串
+     *
      * @param src
      * @return
      */
@@ -72,6 +67,7 @@ public class JsonUtil {
 
     /**
      * 针对快手生成json字符串
+     *
      * @param src
      * @return
      */

@@ -1,20 +1,10 @@
-package com.zhao.marketcenter.dao;
+package com.zhao.marketcenter.dao.entity;
 
 import lombok.Data;
 
-import java.io.Serializable;
-
 @Data
-public class BaseQTO implements Serializable {
+public class BaseQTO extends BaseDO {
     public static final int MAX_COUNT = 500;
-    /**
-     * id
-     */
-    private Long id;
-    /**
-     * 逻辑删除标志
-     */
-    private Integer deleteMark = 0;
     /**
      * 偏移位置
      */

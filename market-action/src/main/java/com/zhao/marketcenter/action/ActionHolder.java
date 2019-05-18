@@ -20,17 +20,18 @@ public class ActionHolder implements ApplicationContextAware {
 
     /**
      * 取得Spring容器里的Action
+     *
      * @param
      * @return
      */
     @SuppressWarnings("unchecked")
     public Action getAction(String actionName) {
-        if(null == actions) {
-            synchronized(this) {
-                if(null == actions) {
+        if (null == actions) {
+            synchronized (this) {
+                if (null == actions) {
                     actions = new HashMap<String, Action>();
                     Map<String, Action> map = applicationContext.getBeansOfType(Action.class);
-                    for(Action act : map.values()) {
+                    for (Action act : map.values()) {
                         actions.put(act.getName(), act);
                     }
                 }

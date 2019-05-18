@@ -6,9 +6,9 @@ import com.zhao.marketcenter.action.RequestContext;
 import com.zhao.marketcenter.action.entity.dto.UserDTO;
 import com.zhao.marketcenter.action.helper.BaseResponse;
 import com.zhao.marketcenter.action.util.ResponseUtil;
-import com.zhao.marketcenter.dao.UserDAO;
-import com.zhao.marketcenter.dao.entity.UserDO;
-import com.zhao.marketcenter.dao.entity.UserQTO;
+import com.zhao.marketcenter.dao.DAO.UserDAO;
+import com.zhao.marketcenter.dao.entity.DO.UserDO;
+import com.zhao.marketcenter.dao.entity.QTO.UserQTO;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
@@ -22,22 +22,26 @@ import java.util.List;
  */
 @Service
 @Log4j2
-public class TestAction implements Action {
+public class CQueryUser implements Action {
 
     @Resource
     private UserDAO userDAO;
 
     @Override
     public BaseResponse execute(RequestContext context) {
-        UserQTO userQTO = (UserQTO) context.get("userQTO");
+        UserQTO userQTO = (UserQTO) context.getRequest().getParam("userQTO");
         List<UserDO> userDOs = userDAO.query(userQTO);
         List<UserDTO> userDTOS = new ArrayList<>();
-        BeanUtils.copyProperties(userDOs, userDTOS);
+        userDOs.forEach(userDO -> {
+            UserDTO userDTO = new UserDTO();
+            BeanUtils.copyProperties(userDO, userDTO);
+            userDTOS.add(userDTO);
+        });
         return ResponseUtil.getSuccessResponse(userDTOS);
     }
 
     @Override
     public String getName() {
-        return ActionEnum.TEST.getActionName();
+        return ActionEnum.C_QUERY_USER.getActionName();
     }
 }

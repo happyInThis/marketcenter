@@ -16,6 +16,7 @@ public class AppContext extends Context implements ApplicationContextAware {
 
     /**
      * 获取指定id的bean对象
+     *
      * @param beanId
      * @return
      */

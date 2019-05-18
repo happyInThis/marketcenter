@@ -20,12 +20,7 @@ import org.apache.http.util.EntityUtils;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
+import java.util.*;
 
 @Log4j2
 public class HttpUtil {
@@ -35,8 +30,9 @@ public class HttpUtil {
 
     /**
      * 发送 post请求
+     *
      * @param httpUrl 地址
-     * @param params 参数(格式:key1=value1&key2=value2)
+     * @param params  参数(格式:key1=value1&key2=value2)
      */
     public static String sendHttpPostWithXML(String httpUrl, String params) {
         HttpPost httpPost = new HttpPost(httpUrl);
@@ -45,7 +41,7 @@ public class HttpUtil {
             StringEntity stringEntity = new StringEntity(params, "UTF-8");
             stringEntity.setContentType("application/x-www-form-urlencoded");
             httpPost.setEntity(stringEntity);
-        } catch(Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return sendHttp(httpPost);
@@ -53,6 +49,7 @@ public class HttpUtil {
 
     /**
      * 发送Get请求
+     *
      * @param requestBase
      * @return
      */
@@ -67,15 +64,15 @@ public class HttpUtil {
             response = client.execute(requestBase);
             entity = response.getEntity();
             responseContent = EntityUtils.toString(entity, "UTF-8");
-        } catch(Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         } finally {
             try {
                 // 关闭连接,释放资源
-                if(response != null) {
+                if (response != null) {
                     response.close();
                 }
-            } catch(IOException e) {
+            } catch (IOException e) {
                 e.printStackTrace();
             }
         }
@@ -83,7 +80,7 @@ public class HttpUtil {
     }
 
     public static CloseableHttpClient getHttpClient() {
-        if(httpClient == null) {
+        if (httpClient == null) {
             log.info("init CloseableHttpClient...");
             httpClient = HttpClients.createDefault();
         }
@@ -92,19 +89,20 @@ public class HttpUtil {
 
     /**
      * 发送 post请求
+     *
      * @param httpUrl 地址
-     * @param maps 参数
+     * @param maps    参数
      */
     public static String sendHttpPost(String httpUrl, Map<String, String> maps) {
         HttpPost httpPost = new HttpPost(httpUrl);
         // 创建参数队列
         List<NameValuePair> nameValuePairs = new ArrayList<>();
-        for(String key : maps.keySet()) {
+        for (String key : maps.keySet()) {
             nameValuePairs.add(new BasicNameValuePair(key, maps.get(key)));
         }
         try {
             httpPost.setEntity(new UrlEncodedFormEntity(nameValuePairs, "UTF-8"));
-        } catch(Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return sendHttp(httpPost);
@@ -112,6 +110,7 @@ public class HttpUtil {
 
     /**
      * 对接快手专用!!!
+     *
      * @param url
      * @param params
      * @return
@@ -134,18 +133,18 @@ public class HttpUtil {
             // 获取返回数据
             HttpEntity entity = httpresponse.getEntity();
             body = EntityUtils.toString(entity);
-        } catch(UnsupportedEncodingException e) {
+        } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
-        } catch(ClientProtocolException e) {
+        } catch (ClientProtocolException e) {
             e.printStackTrace();
-        } catch(IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
         return body;
     }
 
     private static Map<String, Object> fillApiSign(Map<String, Object> signMap, String ksPwd) {
-        if(signMap == null) {
+        if (signMap == null) {
             return null;
         }
         //升序
@@ -153,7 +152,7 @@ public class HttpUtil {
         sortMap.putAll(signMap);
 
         StringBuilder paramSb = new StringBuilder();
-        for(Map.Entry<String, Object> entry : sortMap.entrySet()) {
+        for (Map.Entry<String, Object> entry : sortMap.entrySet()) {
             paramSb.append(entry.getKey());
             paramSb.append("=");
             paramSb.append(entry.getValue());
@@ -170,6 +169,7 @@ public class HttpUtil {
 
     /**
      * 发送 get请求
+     *
      * @param httpUrl
      */
     public static String sendHttpGet(String httpUrl) {

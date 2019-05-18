@@ -2,7 +2,7 @@ package com.zhao.marketcenter.action;
 
 public enum ActionEnum {
 
-    TEST("test");
+    C_QUERY_USER("cQueryUser");
 
     private String actionName;
 
@@ -11,8 +11,8 @@ public enum ActionEnum {
     }
 
     public static ActionEnum getActionEnum(String actionName) {
-        for(ActionEnum ae : ActionEnum.values()) {
-            if(ae.actionName.equals(actionName)) {
+        for (ActionEnum ae : ActionEnum.values()) {
+            if (ae.actionName.equals(actionName)) {
                 return ae;
             }
         }

@@ -13,17 +13,17 @@ public class ServerException extends Exception {
 
     public ServerException(String message) {
         super(message);
-        this.responseCode = ResponseCode.SYS_E_DEFAULT_ERROR;
+        this.responseCode = ResponseCode.SYSTEM_EXCEPTION;
     }
 
     public ServerException(Throwable cause) {
         super(cause);
-        this.responseCode = ResponseCode.SYS_E_DEFAULT_ERROR;
+        this.responseCode = ResponseCode.SYSTEM_EXCEPTION;
     }
 
     public ServerException(String message, Throwable cause) {
         super(message, cause);
-        this.responseCode = ResponseCode.SYS_E_DEFAULT_ERROR;
+        this.responseCode = ResponseCode.SYSTEM_EXCEPTION;
     }
 
     public ServerException(ResponseCode responseCode) {

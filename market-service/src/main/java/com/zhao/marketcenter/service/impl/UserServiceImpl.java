@@ -5,20 +5,20 @@ import com.zhao.marketcenter.action.entity.dto.UserDTO;
 import com.zhao.marketcenter.action.helper.Request;
 import com.zhao.marketcenter.action.helper.Response;
 import com.zhao.marketcenter.action.util.RequestUtil;
-import com.zhao.marketcenter.dao.entity.UserQTO;
+import com.zhao.marketcenter.dao.entity.QTO.UserQTO;
 import com.zhao.marketcenter.service.BaseService;
-import com.zhao.marketcenter.service.CommonService;
+import com.zhao.marketcenter.service.UserService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 
-@Service("commonService")
-public class CommonServiceImpl extends BaseService implements CommonService {
+@Service("userService")
+public class UserServiceImpl extends BaseService implements UserService {
 
     @Override
     public Response<List<UserDTO>> test(UserQTO userQTO) {
-        Request request = RequestUtil.genRequest(ActionEnum.TEST);
+        Request request = RequestUtil.genRequest(ActionEnum.C_QUERY_USER);
         request.setParam("userQTO", userQTO);
         return execute(request);
     }

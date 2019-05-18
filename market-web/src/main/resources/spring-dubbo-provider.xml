@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xmlns="http://www.springframework.org/schema/beans"
+       xmlns:dubbo="http://code.alibabatech.com/schema/dubbo" xmlns="http://www.springframework.org/schema/beans"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
-    http://www.springframework.org/schema/beans/spring-beans.xsd">
+    http://www.springframework.org/schema/beans/spring-beans.xsd http://code.alibabatech.com/schema/dubbo http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
 
     <!-- 使用multicast广播注册中心暴露服务地址-->
     <!-- <dubbo:registry address="multicast://localhost:1234" /> -->
     <!-- 使用zookeeper注册中心暴露服务地址 -->
-    <!--    <dubbo:registry address="zookeeper://${marketcenter.dubbo.registry.address}"/>-->
+    <dubbo:registry address="zookeeper://${marketcenter.dubbo.registry.address}"/>
     <!-- 用dubbo协议在20880端口暴露服务 -->
     <!--<dubbo:protocol name="dubbo" port="20881"/>-->
-    <!--    <dubbo:protocol name="dubbo" port="${marketcenter.dubbo.provider.port}"/>-->
+    <dubbo:protocol name="dubbo" port="${marketcenter.dubbo.provider.port}"/>
 
 </beans>

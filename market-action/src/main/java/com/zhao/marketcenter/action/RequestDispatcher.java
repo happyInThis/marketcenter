@@ -45,7 +45,7 @@ public class RequestDispatcher {
 
     @SuppressWarnings({"rawtypes", "unchecked"})
     public BaseResponse dispatch(ServerRequest req) {
-        if(req == null) {
+        if (req == null) {
             throw new IllegalArgumentException("request is null!");
         }
         // 单例类限流措施
@@ -53,12 +53,9 @@ public class RequestDispatcher {
         BaseResponse response;
         try {
             response = task.call();
-        } catch(ServerException se) {
-            log.error("call exception code:{}", se.getResponseCode(), se.getMessage());
-            return ResponseUtil.getErrorResponse(se.getResponseCode(), se.getMessage());
-        } catch(Throwable e) {
+        } catch (Throwable e) {
             log.error("call exception", e);
-            return ResponseUtil.getErrorResponse(ResponseCode.SYS_E_DEFAULT_ERROR);
+            return ResponseUtil.getErrorResponse(ResponseCode.SYSTEM_EXCEPTION);
         }
         return response;
     }
@@ -83,13 +80,13 @@ public class RequestDispatcher {
 
             // 查找具体的请求操作类型
             Action action = actionHolder.getAction(req.getCommand());
-            if(null != action) {
+            if (null != action) {
                 RequestContext context = new RequestContext(appContext, req);
                 // set request here
                 BaseResponse re;
-                if(!allowAccess(action)) {
-                    re = new BaseResponse(ResponseCode.SYS_E_DEFAULT_ERROR);
-                    return re;
+                if (!allowAccess(action)) {
+                    log.warn("not allow access action:{},params:{}", req.getCommand(), req.getParamNames());
+                    return new BaseResponse(ResponseCode.SYSTEM_EXCEPTION);
                 }
 
                 /**
@@ -99,11 +96,14 @@ public class RequestDispatcher {
                 long beforeFilterEndTime = 0L;
                 long actionEndTime = 0L;
                 long afterFilterEndTime = 0L;
-                BaseResponse res = null;
+                BaseResponse res = new BaseResponse();
                 try {
                     // 执行操作
                     res = action.execute(context);
                     return res;
+                } catch (ServerException e) {
+                    log.error("call action exception:{}", e.getResponseCode().getComment());
+                    return ResponseUtil.getErrorResponse(e);
                 } finally {
                     log.info("action:" + req.getCommand() + ", result:" + res.getCode() + ", filterBeforeCost:" + (beforeFilterEndTime - startTime) + ", actionCost:" + (actionEndTime - beforeFilterEndTime) + ", filterAfterCost:" + (afterFilterEndTime - actionEndTime));
                     log.info("request:{}", JsonUtil.toJson(req));

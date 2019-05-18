@@ -1,4 +1,4 @@
-package com.zhao.marketcenter.dao;
+package com.zhao.marketcenter.dao.entity;
 
 import lombok.Data;
 

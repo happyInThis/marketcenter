@@ -19,6 +19,7 @@ public class ServerRequest implements Request {
 
     /**
      * 获取系统context
+     *
      * @return
      */
     public Context getContext() {
@@ -27,6 +28,7 @@ public class ServerRequest implements Request {
 
     /**
      * 设置系统context
+     *
      * @param context
      */
     public void setContext(Context context) {
@@ -35,6 +37,7 @@ public class ServerRequest implements Request {
 
     /**
      * 获取格式化好的value
+     *
      * @param key
      * @return
      */
@@ -48,6 +51,7 @@ public class ServerRequest implements Request {
 
     /**
      * 获取格式化好的value
+     *
      * @param key
      * @return
      */
@@ -57,6 +61,7 @@ public class ServerRequest implements Request {
 
     /**
      * 获取格式化好的value
+     *
      * @param key
      * @return
      */
@@ -66,6 +71,7 @@ public class ServerRequest implements Request {
 
     /**
      * 获取格式化好的value
+     *
      * @param key
      * @return
      */
@@ -75,6 +81,7 @@ public class ServerRequest implements Request {
 
     /**
      * 获取格式化好的value
+     *
      * @param key
      * @return
      */
@@ -88,6 +95,7 @@ public class ServerRequest implements Request {
 
     /**
      * 获取格式化好的value
+     *
      * @param key
      * @return
      */
@@ -126,6 +134,7 @@ public class ServerRequest implements Request {
 
     /**
      * 设置应用本次请求的全局变量
+     *
      * @param key
      * @param val
      */
@@ -135,6 +144,7 @@ public class ServerRequest implements Request {
 
     /**
      * 获取应用本次请求的全局变量
+     *
      * @param key
      * @return
      */

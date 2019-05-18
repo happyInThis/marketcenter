@@ -29,6 +29,7 @@ public class BaseResponse<T> implements Response<T>, Serializable {
 
     /**
      * 只有当module是集合类型时候才需要将集合大小赋值给totalCount字段
+     *
      * @param module
      */
     public BaseResponse(T module) {
@@ -59,6 +60,10 @@ public class BaseResponse<T> implements Response<T>, Serializable {
         return this.code;
     }
 
+    public void setCode(int code) {
+        this.code = code;
+    }
+
     @Override
     public String getMsg() {
         return msg;
@@ -80,10 +85,6 @@ public class BaseResponse<T> implements Response<T>, Serializable {
     @Override
     public boolean isSuccess() {
         return ResponseCode.RESPONSE_SUCCESS.getCode() == this.getCode();
-    }
-
-    public void setCode(int code) {
-        this.code = code;
     }
 
     @Override
