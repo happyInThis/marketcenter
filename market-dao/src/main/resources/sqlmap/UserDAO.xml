@@ -1,0 +1,325 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace必须指向DAO接口 -->
+<mapper namespace="com.zhao.marketcenter.dao.UserDAO">
+    <resultMap id="UserOrderResultMap" type="com.zhao.marketcenter.dao.entity.UserDO">
+        <id property="id" column="id"/>
+        <result property="bizCode" column="biz_code"/>
+        <result property="orderSn" column="order_sn"/>
+
+    </resultMap>
+
+    <!-- 定义可重用的SQL代码段，可以包含在其他语句中 -->
+    <sql id="base_column">
+		 id
+		 ,biz_code
+
+	</sql>
+
+    <!-- 定义可重用的WHERE SQL公共代码段，可以包含在其他语句中 -->
+    <sql id="where_column">
+        <if test="id != null">
+            AND id = #{id}
+        </if>
+        <if test="deleteMark != null">
+            AND delete_mark = #{deleteMark}
+        </if>
+    </sql>
+
+    <insert id="add" parameterType="com.zhao.marketcenter.dao.entity.UserDO" useGeneratedKeys="true"
+            keyProperty="id">
+		INSERT INTO user(
+				biz_code
+				,order_sn
+
+		)
+		VALUES (
+				#{bizCode}
+				,#{orderSn}
+
+		)
+	</insert>
+
+    <select id="get" resultMap="UserOrderResultMap">
+        SELECT
+        <include refid="base_column"/>
+        FROM user
+        WHERE id=#{id} AND delete_mark=0
+    </select>
+
+    <select id="query" resultMap="UserOrderResultMap">
+        SELECT
+        <include refid="base_column"/>
+        FROM user
+        <where>
+            <include refid="where_column"/>
+        </where>
+        <choose>
+            <when test="orderByAsc != null">
+                ORDER BY ${orderByAsc} ASC
+                <if test="orderByDesc != null">
+                    , ${orderByDesc} DESC
+                </if>
+            </when>
+            <otherwise>
+                <if test="orderByDesc != null">
+                    ORDER BY ${orderByDesc} DESC
+                </if>
+            </otherwise>
+        </choose>
+        LIMIT #{offset},#{count}
+    </select>
+
+    <select id="getTotalCount" resultType="java.lang.Long">
+        SELECT count(1)
+        FROM user
+        <where>
+            <include refid="where_column"/>
+        </where>
+    </select>
+
+    <update id="updateById" parameterType="com.zhao.marketcenter.dao.entity.UserDO">
+        UPDATE user
+        <set>
+            gmt_modified=now(),
+            <if test="id != null">
+                id = #{id,jdbcType=BIGINT},
+            </if>
+            <if test="bizCode != null">
+                biz_code = #{bizCode,jdbcType=VARCHAR},
+            </if>
+            <if test="orderSn != null">
+                order_sn = #{orderSn,jdbcType=VARCHAR},
+            </if>
+            <if test="type != null">
+                type = #{type,jdbcType=TINYINT},
+            </if>
+            <if test="userId != null">
+                user_id = #{userId,jdbcType=BIGINT},
+            </if>
+            <if test="userName != null">
+                user_name = #{userName,jdbcType=VARCHAR},
+            </if>
+            <if test="headImgUrl != null">
+                head_img_url = #{headImgUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="consignee != null">
+                consignee = #{consignee,jdbcType=VARCHAR},
+            </if>
+            <if test="consigneeMobile != null">
+                consignee_mobile = #{consigneeMobile,jdbcType=VARCHAR},
+            </if>
+            <if test="sellerId != null">
+                seller_id = #{sellerId,jdbcType=BIGINT},
+            </if>
+            <if test="totalPrice != null">
+                total_price = #{totalPrice,jdbcType=BIGINT},
+            </if>
+            <if test="deliveryFee != null">
+                delivery_fee = #{deliveryFee,jdbcType=BIGINT},
+            </if>
+            <if test="totalAmount != null">
+                total_amount = #{totalAmount,jdbcType=BIGINT},
+            </if>
+            <if test="leagueAmount != null">
+                league_amount = #{leagueAmount,jdbcType=BIGINT},
+            </if>
+            <if test="supplierAmount != null">
+                supplier_amount = #{supplierAmount,jdbcType=BIGINT},
+            </if>
+            <if test="orderStatus != null">
+                order_status = #{orderStatus,jdbcType=TINYINT},
+            </if>
+            <if test="purchaseStatus != null">
+                purchase_status = #{purchaseStatus,jdbcType=TINYINT},
+            </if>
+            <if test="purchasePushTime != null">
+                purchase_push_time = #{purchasePushTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="purchaseMsg != null">
+                purchase_msg = #{purchaseMsg,jdbcType=VARCHAR},
+            </if>
+            <if test="deliveryId != null">
+                delivery_id = #{deliveryId,jdbcType=INTEGER},
+            </if>
+            <if test="paymentId != null">
+                payment_id = #{paymentId,jdbcType=TINYINT},
+            </if>
+            <if test="payMark != null">
+                pay_mark = #{payMark,jdbcType=BIT},
+            </if>
+            <if test="discountAmount != null">
+                discount_amount = #{discountAmount,jdbcType=BIGINT},
+            </if>
+            <if test="discountMark != null">
+                discount_mark = #{discountMark,jdbcType=TINYINT},
+            </if>
+            <if test="point != null">
+                point = #{point,jdbcType=BIGINT},
+            </if>
+            <if test="userMemo != null">
+                user_memo = #{userMemo,jdbcType=VARCHAR},
+            </if>
+            <if test="sellerMemo != null">
+                seller_memo = #{sellerMemo,jdbcType=VARCHAR},
+            </if>
+            <if test="adminMemo != null">
+                admin_memo = #{adminMemo,jdbcType=VARCHAR},
+            </if>
+            <if test="invoiceMark != null">
+                invoice_mark = #{invoiceMark,jdbcType=TINYINT},
+            </if>
+            <if test="orderTime != null">
+                order_time = #{orderTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="payTime != null">
+                pay_time = #{payTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="consignTime != null">
+                consign_time = #{consignTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="receiptTime != null">
+                receipt_time = #{receiptTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="attachInfo != null">
+                attach_info = #{attachInfo,jdbcType=VARCHAR},
+            </if>
+            <if test="refundMark != null">
+                refund_mark = #{refundMark,jdbcType=INTEGER},
+            </if>
+            <if test="appType != null">
+                app_type = #{appType,jdbcType=INTEGER},
+            </if>
+            <if test="floatingPrice != null">
+                floating_price = #{floatingPrice,jdbcType=BIGINT},
+            </if>
+            <if test="timeoutCancelSeconds != null">
+                timeout_cancel_seconds = #{timeoutCancelSeconds,jdbcType=BIGINT UNSIGNED},
+            </if>
+            <if test="asteriskMark != null">
+                asterisk_mark = #{asteriskMark,jdbcType=TINYINT},
+            </if>
+            <if test="cancelReason != null">
+                cancel_reason = #{cancelReason,jdbcType=VARCHAR},
+            </if>
+            <if test="originalOrder != null">
+                original_order = #{originalOrder,jdbcType=BIGINT},
+            </if>
+            <if test="settlementMark != null">
+                settlement_mark = #{settlementMark,jdbcType=TINYINT},
+            </if>
+            <if test="taxFee != null">
+                tax_fee = #{taxFee,jdbcType=BIGINT},
+            </if>
+            <if test="higoExtraInfo != null">
+                higo_extra_info = #{higoExtraInfo,jdbcType=VARCHAR},
+            </if>
+            <if test="mallCommission != null">
+                mall_commission = #{mallCommission,jdbcType=BIGINT},
+            </if>
+            <if test="printMark != null">
+                print_mark = #{printMark,jdbcType=TINYINT},
+            </if>
+            <if test="deliveryPrintMark != null">
+                delivery_print_mark = #{deliveryPrintMark,jdbcType=TINYINT},
+            </if>
+            <if test="digitalExpressMark != null">
+                digital_express_mark = #{digitalExpressMark,jdbcType=TINYINT},
+            </if>
+            <if test="firstOrderMark != null">
+                first_order_mark = #{firstOrderMark,jdbcType=TINYINT},
+            </if>
+            <if test="purchaseTime != null">
+                purchase_time = #{purchaseTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="returnAddress != null">
+                return_address = #{returnAddress,jdbcType=VARCHAR},
+            </if>
+            <if test="cancelTime != null">
+                cancel_time = #{cancelTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="deliveryTime != null">
+                delivery_time = #{deliveryTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="finishTime != null">
+                finish_time = #{finishTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="proxyMark != null">
+                proxy_mark = #{proxyMark,jdbcType=TINYINT},
+            </if>
+            <if test="hasSubOrder != null">
+                has_sub_order = #{hasSubOrder,jdbcType=TINYINT},
+            </if>
+            <if test="supplierBizCode != null">
+                supplier_biz_code = #{supplierBizCode,jdbcType=VARCHAR},
+            </if>
+            <if test="supplierSellerId != null">
+                supplier_seller_id = #{supplierSellerId,jdbcType=BIGINT},
+            </if>
+            <if test="settlementStatus != null">
+                settlement_status = #{settlementStatus,jdbcType=TINYINT},
+            </if>
+            <if test="purchaseSettlementStatus != null">
+                purchase_settlement_status = #{purchaseSettlementStatus,jdbcType=TINYINT},
+            </if>
+            <if test="deleteMark != null">
+                delete_mark = #{deleteMark,jdbcType=TINYINT},
+            </if>
+            <if test="deleteTimestamp != null">
+                delete_timestamp = #{deleteTimestamp,jdbcType=BIGINT},
+            </if>
+            <if test="gmtModified != null">
+                gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+            </if>
+            <if test="gmtCreated != null">
+                gmt_created = #{gmtCreated,jdbcType=TIMESTAMP},
+            </if>
+            <if test="tid != null">
+                t_id = #{tid,jdbcType=VARCHAR},
+            </if>
+            <if test="showFlag != null">
+                show_flag = #{showFlag,jdbcType=TINYINT},
+            </if>
+            <if test="starUserId != null">
+                star_user_id = #{starUserId,jdbcType=BIGINT},
+            </if>
+            <if test="brandMark != null">
+                brand_mark = #{brandMark,jdbcType=TINYINT},
+            </if>
+            <if test="rookieMark != null">
+                rookie_mark = #{rookieMark,jdbcType=TINYINT},
+            </if>
+            <if test="itemName != null">
+                item_name = #{itemName,jdbcType=VARCHAR},
+            </if>
+            <if test="shareFlag != null">
+                share_flag = #{shareFlag,jdbcType=TINYINT},
+            </if>
+            <if test="mergeRole != null">
+                merge_role = #{mergeRole,jdbcType=TINYINT},
+            </if>
+            <if test="promoteMark != null">
+                promote_mark = #{promoteMark,jdbcType=TINYINT},
+            </if>
+        </set>
+        WHERE
+        id=#{id} AND delete_mark=0
+    </update>
+
+    <update id="deleteById">
+		UPDATE user SET delete_mark=1, delete_timestamp=unix_timestamp(now()), gmt_modified=now()
+		WHERE id=#{id} AND delete_mark=0
+	</update>
+
+    <!-- 逻辑删除数据、软删除数据 (批量删除)-->
+    <update id="delete" parameterType="java.util.List">
+        UPDATE user
+        SET delete_mark=1, delete_timestamp=unix_timestamp(now()), gmt_modified=now()
+        WHERE id IN
+        <foreach item="userOrderId" index="index" collection="list" open="(" separator="," close=")">
+            #{userOrderId}
+        </foreach>
+        AND delete_mark=0
+    </update>
+</mapper> 

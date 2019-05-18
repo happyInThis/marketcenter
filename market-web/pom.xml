@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <groupId>com.zhao.marketcenter</groupId>
+        <artifactId>marketcenter</artifactId>
+        <version>1.0.0</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>market-web</artifactId>
+    <version>1.0.0</version>
+    <packaging>jar</packaging>
+    <name>market-web</name>
+    <properties>
+        <war.version>3.2.2</war.version>
+        <resource.delimiter>${}</resource.delimiter>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.zhao.marketcenter</groupId>
+            <artifactId>market-service</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+            <exclusions>
+                <exclusion>
+                    <artifactId>logback-classic</artifactId>
+                    <groupId>ch.qos.logback</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>spring-boot-starter-logging</artifactId>
+                    <groupId>org.springframework.boot</groupId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+    </dependencies>
+    <profiles>
+        <!-- 本地环境-->
+        <profile>
+            <id>local</id>
+            <properties>
+                <env>local</env>
+            </properties>
+        </profile>
+        <!-- 开发环境，默认激活-->
+        <profile>
+            <id>dev</id>
+            <properties>
+                <env>dev</env>
+            </properties>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+        </profile>
+        <!-- 测试环境 -->
+        <profile>
+            <id>daily</id>
+            <properties>
+                <env>daily</env>
+            </properties>
+        </profile>
+        <!-- 预发环境 -->
+        <profile>
+            <id>pre</id>
+            <properties>
+                <env>pre</env>
+            </properties>
+        </profile>
+        <!-- 压测环境 -->
+        <profile>
+            <id>perf</id>
+            <properties>
+                <env>perf</env>
+            </properties>
+        </profile>
+        <!-- 生产环境 -->
+        <profile>
+            <id>online</id>
+            <properties>
+                <env>online</env>
+            </properties>
+        </profile>
+        <!-- 生产环境 job应用-->
+        <profile>
+            <id>onlineJob</id>
+            <properties>
+                <env>onlineJob</env>
+            </properties>
+        </profile>
+    </profiles>
+    <build>
+
+        <finalName>marketcenter</finalName>
+        <filters>
+            <filter>src/main/filters/filter-${env}.properties</filter>
+        </filters>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>${maven.compiler.version}</source>
+                    <target>${maven.target.version}</target>
+                    <encoding>${project.build.sourceEncoding}</encoding>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>${war.version}</version>
+            </plugin>
+
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>${spring.boot.version}</version>
+                <configuration>
+                    <mainClass>com.zhao.marketcenter.Application</mainClass>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+</project>

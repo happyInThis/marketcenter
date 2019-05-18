@@ -1,0 +1,35 @@
+spring:
+  datasource:
+    name: test
+    url: jdbc:mysql://${marketcenter.database.address}:3306/${marketcenter.database.name}?useUnicode=true&characterEncoding=utf8&autoReconnect=true
+    username: ${marketcenter.database.username}
+    password: ${marketcenter.database.password}
+    # 使用druid数据源
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: com.mysql.jdbc.Driver
+    filters: stat
+    maxActive: 50
+    initialSize: 1
+    maxWait: 60000
+    minIdle: 1
+    timeBetweenEvictionRunsMillis: 60000
+    minEvictableIdleTimeMillis: 300000
+    validationQuery: select 'x'
+    testWhileIdle: true
+    testOnBorrow: false
+    testOnReturn: false
+    poolPreparedStatements: true
+    maxOpenPreparedStatements: 20
+  http:
+    encoding:
+      force: true
+      charset: UTF-8
+      enabled: true
+mybatis:
+  mapperLocations: classpath:sqlmap/*.xml
+  typeAliasesPackage: com.zhao.marketcenter.dao.entity
+server:
+  port: ${marketcenter.server.port}
+  tomcat:
+    uri-encoding: UTF-8
+    max-threads: 1000
