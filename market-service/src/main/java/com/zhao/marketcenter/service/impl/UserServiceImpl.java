@@ -5,21 +5,25 @@ import com.zhao.marketcenter.action.entity.dto.UserDTO;
 import com.zhao.marketcenter.action.helper.Request;
 import com.zhao.marketcenter.action.helper.Response;
 import com.zhao.marketcenter.action.util.RequestUtil;
-import com.zhao.marketcenter.dao.entity.QTO.UserQTO;
 import com.zhao.marketcenter.service.BaseService;
 import com.zhao.marketcenter.service.UserService;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 
 @Service("userService")
 public class UserServiceImpl extends BaseService implements UserService {
 
     @Override
-    public Response<List<UserDTO>> test(UserQTO userQTO) {
-        Request request = RequestUtil.genRequest(ActionEnum.C_QUERY_USER);
-        request.setParam("userQTO", userQTO);
+    public Response<UserDTO> getUser(Long id) {
+        Request request = RequestUtil.genRequest(ActionEnum.C_GET_USER);
+        request.setParam("id", id);
+        return execute(request);
+    }
+
+    @Override
+    public Response<Void> addUser(UserDTO userDTO) {
+        Request request = RequestUtil.genRequest(ActionEnum.C_ADD_USER);
+        request.setParam("userDTO", userDTO);
         return execute(request);
     }
 

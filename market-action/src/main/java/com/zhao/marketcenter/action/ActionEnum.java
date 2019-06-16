@@ -2,7 +2,9 @@ package com.zhao.marketcenter.action;
 
 public enum ActionEnum {
 
-    C_QUERY_USER("cQueryUser");
+    C_QUERY_USER("cQueryUser"),
+    C_GET_USER("cGETUser"),
+    C_ADD_USER("cAddUser");
 
     private String actionName;
 

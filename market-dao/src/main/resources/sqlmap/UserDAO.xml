@@ -5,7 +5,7 @@
 <mapper namespace="com.zhao.marketcenter.dao.DAO.UserDAO">
     <resultMap id="UserResultMap" type="com.zhao.marketcenter.dao.entity.DO.UserDO">
         <id property="id" column="id"/>
-        <result property="username" column="username"/>
+        <result property="userName" column="user_name"/>
         <result property="age" column="age"/>
 
     </resultMap>
@@ -13,7 +13,7 @@
     <!-- 定义可重用的SQL代码段，可以包含在其他语句中 -->
     <sql id="base_column">
 		 id
-		 ,username
+		 ,user_name
 		 ,age
 
 	</sql>
@@ -23,8 +23,8 @@
         <if test="id != null">
             AND id = #{id}
         </if>
-        <if test="username != null">
-            AND username = #{username}
+        <if test="userName != null">
+            AND user_name = #{userName}
         </if>
         <if test="age != null">
             AND age = #{age}
@@ -34,12 +34,12 @@
     <insert id="add" parameterType="com.zhao.marketcenter.dao.entity.DO.UserDO" useGeneratedKeys="true"
             keyProperty="id">
 		INSERT INTO user(
-				username
+				user_name
 				,age
 
 		)
 		VALUES (
-				#{username}
+				#{userName}
 				,#{age}
 
 		)
@@ -93,8 +93,8 @@
             <if test="age != null">
                 age = #{age,jdbcType=TINYINT},
             </if>
-            <if test="username != null">
-                username = #{username,jdbcType=VARCHAR},
+            <if test="userName != null">
+                user_name = #{userName,jdbcType=VARCHAR},
             </if>
         </set>
         WHERE
