@@ -9,6 +9,7 @@ import com.zhao.marketcenter.action.util.ResponseUtil;
 import com.zhao.marketcenter.dao.DAO.UserDAO;
 import com.zhao.marketcenter.dao.entity.DO.UserDO;
 import lombok.extern.log4j.Log4j2;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
@@ -18,7 +19,7 @@ import javax.annotation.Resource;
  *
  */
 @Service
-@Log4j2
+@Slf4j
 public class CGetUser implements Action {
 
     @Resource
