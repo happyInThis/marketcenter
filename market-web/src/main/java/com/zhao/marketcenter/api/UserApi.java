@@ -30,8 +30,11 @@ public class UserApi {
         Response<UserDTO> response = userService.getUser(id);
         if (response.isSuccess()) {
             UserVO userVO = new UserVO();
-            BeanUtils.copyProperties(response.getModule(), userVO);
-            return JsonUtil.toJson(ResponseUtil.getSuccessResponse(userVO, 1));
+            if(response.getModule() != null) {
+                BeanUtils.copyProperties(response.getModule(), userVO);
+                return JsonUtil.toJson(ResponseUtil.getSuccessResponse(userVO, 1));
+            }
+            return JsonUtil.toJson(ResponseUtil.getSuccessResponse());
         }
         return JsonUtil.toJson(ResponseUtil.getErrorResponse(response.getCode(), response.getMsg()));
     }
