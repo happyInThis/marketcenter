@@ -1,7 +1,7 @@
 package com.zhao.marketcenter.dao.DAO;
 
+import com.zhao.marketcenter.client.qto.UserQTO;
 import com.zhao.marketcenter.dao.entity.DO.UserDO;
-import com.zhao.marketcenter.dao.entity.QTO.UserQTO;
 
 import java.util.List;
 

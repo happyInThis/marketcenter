@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<ActionConfig>
-    <filters>
-        <chain name="required">
-            <filter name="appCheckFilter" implClass="com.zhao.marketcenter.action.filter.impl.Filter"/>
-        </chain>
-    </filters>
-</ActionConfig>

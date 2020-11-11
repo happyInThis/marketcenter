@@ -1,11 +1,11 @@
 package com.zhao.marketcenter.manager.impl;
 
+import com.zhao.marketcenter.client.qto.BaseQTO;
+import com.zhao.marketcenter.client.qto.UserQTO;
 import com.zhao.marketcenter.common.exception.ServerException;
 import com.zhao.marketcenter.common.util.JsonUtil;
 import com.zhao.marketcenter.dao.DAO.UserDAO;
-import com.zhao.marketcenter.dao.entity.BaseQTO;
 import com.zhao.marketcenter.dao.entity.DO.UserDO;
-import com.zhao.marketcenter.dao.entity.QTO.UserQTO;
 import com.zhao.marketcenter.manager.UserManager;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;

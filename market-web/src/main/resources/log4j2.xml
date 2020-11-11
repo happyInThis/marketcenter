@@ -2,7 +2,7 @@
 <Configuration status="off" monitorInterval="1800">
     <properties>
         <property name="logHome">${marketcenter.loggingRoot}</property>
-        <property name="logLevel">${marketcenter.loggingLevel}</property>
+        <property name="logLevel">info</property>
         <property name="pattern">%d{yyyy-MM-dd HH:mm:ss.SSS} [%-5p] [%-5t] [%logger{36}:%L] %m%n</property>
     </properties>
 
@@ -10,15 +10,6 @@
         <Console name="console" target="SYSTEM_OUT">
             <PatternLayout pattern="${pattern}"/>
         </Console>
-
-        <Gelf name="gelf" graylogHost="udp:log.zhao.com" graylogPort="12201" extractStackTrace="true"
-              filterStackTrace="true" mdcProfiling="true" maximumMessageSize="2000"
-              additionalFieldTypes="server=String,application=String">
-            <Field name="timestamp" pattern="${pattern}"/>
-            <Field name="level" pattern="%level"/>
-            <Field name="server" pattern="%host{address}"/>
-            <Field name="application" literal="marketcenter"/>
-        </Gelf>
 
         <RollingRandomAccessFile name="app"
                                  fileName="${logHome}/root.log"
@@ -129,27 +120,6 @@
             <DefaultRolloverStrategy max="20"/>
         </RollingRandomAccessFile>
 
-        <RollingRandomAccessFile name="rabbitmq"
-                                 fileName="${logHome}/rocketmq.log"
-                                 filePattern="${logHome}/rocketmq.log.%d{yyyy-MM-dd}-%i">
-            <PatternLayout pattern="${pattern}"/>
-            <Policies>
-                <TimeBasedTriggeringPolicy interval="1"/>
-                <SizeBasedTriggeringPolicy size="500 MB"/>
-            </Policies>
-            <DefaultRolloverStrategy max="20"/>
-        </RollingRandomAccessFile>
-
-        <RollingRandomAccessFile name="solr"
-                                 fileName="${logHome}/solr.log"
-                                 filePattern="${logHome}/solr.log.%d{yyyy-MM-dd}-%i">
-            <PatternLayout pattern="${pattern}"/>
-            <Policies>
-                <TimeBasedTriggeringPolicy interval="1"/>
-                <SizeBasedTriggeringPolicy size="500 MB"/>
-            </Policies>
-            <DefaultRolloverStrategy max="20"/>
-        </RollingRandomAccessFile>
     </Appenders>
 
     <Loggers>
@@ -195,19 +165,6 @@
                 includeLocation="false"
                 additivity="true">
             <appender-ref ref="redis"/>
-            <appender-ref ref="gelf"/>
-        </logger>
-
-        <logger name="rabbitmqLog" level="${logLevel}" includeLocation="false"
-                additivity="true">
-            <appender-ref ref="rocketmq"/>
-            <appender-ref ref="gelf"/>
-        </logger>
-
-        <logger name="solrLog" level="${logLevel}" includeLocation="false"
-                additivity="true">
-            <appender-ref ref="solr"/>
-            <appender-ref ref="gelf"/>
         </logger>
 
         <root level="${logLevel}" includeLocation="false">

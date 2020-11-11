@@ -14,8 +14,20 @@
     <dependencies>
         <dependency>
             <groupId>com.zhao.marketcenter</groupId>
-            <artifactId>market-action</artifactId>
+            <artifactId>market-manager</artifactId>
         </dependency>
+        <!--        <dependency>-->
+        <!--            <groupId>org.apache.dubbo</groupId>-->
+        <!--            <artifactId>dubbo-spring-boot-starter</artifactId>-->
+        <!--        </dependency>-->
+        <!--        <dependency>-->
+        <!--            <groupId>org.apache.curator</groupId>-->
+        <!--            <artifactId>curator-framework</artifactId>-->
+        <!--        </dependency>-->
+        <!--        <dependency>-->
+        <!--            <groupId>org.apache.curator</groupId>-->
+        <!--            <artifactId>curator-recipes</artifactId>-->
+        <!--        </dependency>-->
     </dependencies>
 
     <build>

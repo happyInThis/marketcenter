@@ -1,6 +1,5 @@
 package com.zhao.marketcenter.common.util;
 
-import lombok.extern.log4j.Log4j2;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.http.HttpEntity;

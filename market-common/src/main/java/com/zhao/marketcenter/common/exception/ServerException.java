@@ -1,6 +1,6 @@
 package com.zhao.marketcenter.common.exception;
 
-import com.zhao.marketcenter.common.ResponseCode;
+import com.zhao.marketcenter.client.ResponseCode;
 
 public class ServerException extends Exception {
     private static final long serialVersionUID = 4065133016321980497L;

@@ -12,11 +12,11 @@
 
     <!-- 定义可重用的SQL代码段，可以包含在其他语句中 -->
     <sql id="base_column">
-		 id
-		 ,user_name
-		 ,age
+        id
+        ,user_name
+        ,age
 
-	</sql>
+    </sql>
 
     <!-- 定义可重用的WHERE SQL公共代码段，可以包含在其他语句中 -->
     <sql id="where_column">
@@ -33,17 +33,17 @@
 
     <insert id="add" parameterType="com.zhao.marketcenter.dao.entity.DO.UserDO" useGeneratedKeys="true"
             keyProperty="id">
-		INSERT INTO user(
-				user_name
-				,age
+        INSERT INTO user(
+        user_name
+        ,age
 
-		)
-		VALUES (
-				#{userName}
-				,#{age}
+        )
+        VALUES (
+        #{userName}
+        ,#{age}
 
-		)
-	</insert>
+        )
+    </insert>
 
     <select id="get" resultMap="UserResultMap">
         SELECT
@@ -102,9 +102,9 @@
     </update>
 
     <update id="deleteById">
-		UPDATE user SET delete_mark=1, delete_timestamp=unix_timestamp(now()), gmt_modified=now()
-		WHERE id=#{id} AND delete_mark=0
-	</update>
+        UPDATE user SET delete_mark=1, delete_timestamp=unix_timestamp(now()), gmt_modified=now()
+        WHERE id=#{id} AND delete_mark=0
+    </update>
 
     <!-- 逻辑删除数据、软删除数据 (批量删除)-->
     <update id="delete" parameterType="java.util.List">
